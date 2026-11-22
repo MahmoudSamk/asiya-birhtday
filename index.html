@@ -2,10 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff9e6" media="(max-width: 760px)">
   <meta name="theme-color" content="#e7ddff">
   <meta name="description" content="كتكوت صغير مخبّي مفاجأة.">
-  <title>مفاجأة بتزوغ 🐣</title>
+  <title>الكتكوت 🐣</title>
   <style>
     :root {
       color-scheme: light;
@@ -36,63 +37,18 @@
     button:focus-visible { outline: 3px dashed var(--purple); outline-offset: 5px; }
 
     .layout {
-      width: min(1080px, 100%);
+      width: min(660px, 100%);
       margin-inline: auto;
-      padding: 48px clamp(20px, 5vw, 60px) 58px;
-      display: grid;
-      grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
-      align-items: center;
-      gap: clamp(34px, 7vw, 90px);
+      padding: 24px;
     }
 
-    .intro { position: relative; }
-    .stamp {
-      display: grid;
-      width: 54px;
-      aspect-ratio: 1;
-      place-items: center;
-      border: 2px solid var(--ink);
-      border-radius: 16px;
-      color: var(--ink);
-      background: var(--pink);
-      box-shadow: -3px 4px 0 var(--ink);
-      transform: rotate(10deg);
-      font: 34px/1 Georgia, serif;
-      margin-block-end: 23px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(3rem, 6.4vw, 5.7rem);
-      font-weight: 900;
-      letter-spacing: -.045em;
-      line-height: 1.13;
-    }
-
-    .title-accent {
-      display: inline-block;
-      position: relative;
-      z-index: 0;
-      color: var(--purple);
-    }
-
-    .title-accent::after {
-      content: "";
+    .hint {
       position: absolute;
-      z-index: -1;
-      inset: auto -2% 3%;
-      height: .24em;
-      background: var(--yellow);
-      border-radius: 65% 38% 41% 52%;
-      transform: rotate(-4deg);
-    }
-
-    .intro p {
-      margin: 23px 0 0;
-      max-width: 32ch;
-      font-size: clamp(1.05rem, 2vw, 1.23rem);
-      line-height: 1.65;
+      inset: auto 22px 20px;
+      margin: 0;
       color: #504064;
+      text-align: center;
+      font-size: 1rem;
     }
 
     .card {
@@ -232,26 +188,6 @@
     .card[data-count="2"] .beak { width: 12%; left: 44%; height: 16%; border-radius: 50%; }
     .card[data-count="3"] .wing-right { transform: rotate(-26deg) translate(7%, -19%); }
 
-    .progress {
-      position: absolute;
-      bottom: 22px;
-      inset-inline: 0;
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .progress span {
-      width: 12px;
-      height: 15px;
-      border: 1.5px solid #744e8d;
-      border-radius: 52% 54% 49% 48% / 65% 65% 40% 40%;
-      background: #faf0ff;
-      transform: rotate(13deg);
-    }
-
-    .progress .filled { background: var(--pink); border-color: var(--ink); }
-
     .celebration {
       position: absolute;
       z-index: 3;
@@ -328,18 +264,34 @@
     @keyframes confetti {
       0% { transform: translate(0, -4px) rotate(0); opacity: 1; }
       80% { opacity: 1; }
-      100% { transform: translate(var(--drift), 510px) rotate(var(--spin)); opacity: 0; }
+      100% { transform: translate(var(--drift), var(--confetti-fall, 510px)) rotate(var(--spin)); opacity: 0; }
     }
 
-    @media (max-width: 700px) {
-      .layout { grid-template-columns: minmax(0, 1fr); gap: 23px; max-width: 500px; padding-block: 26px 31px; }
-      .intro { text-align: center; }
-      .stamp { width: 38px; font-size: 24px; border-radius: 11px; margin: 0 auto 12px; }
-      h1 { font-size: clamp(2.45rem, 10vw, 3.65rem); }
-      .intro p { margin: 12px auto 0; }
-      .card { height: 348px; border-radius: 27px; box-shadow: -5px 6px 0 var(--ink); }
-      .card::before { border-radius: 19px; }
-      .doodle { font-size: 27px; }
+    @media (max-width: 760px), (pointer: coarse) and (max-height: 600px) {
+      .layout { width: 100%; padding: 0; }
+      .card {
+        height: 100svh;
+        height: 100dvh;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        --confetti-fall: calc(100dvh + 20px);
+      }
+      .card::before {
+        inset: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+          max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+      }
+      .speech { top: max(30px, calc(env(safe-area-inset-top) + 16px)); font-size: 1.2rem; }
+      .hint { bottom: max(30px, calc(env(safe-area-inset-bottom) + 16px)); }
+      .chick-button { width: min(48vw, 34dvh, 244px); }
+      .party-chick { width: clamp(96px, 21dvh, 154px); }
+      .celebration h2 { font-size: clamp(1.9rem, 9vw, 3.5rem); }
+    }
+
+    @media (max-height: 430px) and (orientation: landscape) {
+      .celebration { gap: 7px; }
+      .party-chick { width: 83px; }
+      .celebration h2 { font-size: 2rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -350,12 +302,6 @@
 </head>
 <body>
   <main class="layout">
-    <header class="intro">
-      <span class="stamp" aria-hidden="true">✦</span>
-      <h1>فيه مفاجأة<br><span class="title-accent">بتزوغ!</span></h1>
-      <p>امسكي الكتكوت عشان تعرفي السر.</p>
-    </header>
-
     <section class="card" id="card" aria-label="لعبة الكتكوت" data-count="0">
       <span class="doodle doodle-top" aria-hidden="true">✦</span>
       <span class="doodle doodle-side" aria-hidden="true">♡</span>
@@ -372,7 +318,7 @@
           <span class="beak"></span>
         </span>
       </button>
-      <div class="progress" id="progress" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p class="hint" id="hint">امسكي الكتكوت عشان تعرفي السر.</p>
       <div class="celebration" id="celebration" hidden>
         <span class="chick party-chick" aria-hidden="true">
           <span class="shadow"></span>
@@ -399,7 +345,7 @@
     const card = document.querySelector('#card');
     const chickButton = document.querySelector('#chick-button');
     const speech = document.querySelector('#speech');
-    const progress = document.querySelector('#progress');
+    const hint = document.querySelector('#hint');
     const celebration = document.querySelector('#celebration');
     const greeting = document.querySelector('#greeting');
     const replay = document.querySelector('#replay');
@@ -416,13 +362,12 @@
         chickButton.style.setProperty('--y', dodge.y);
         chickButton.style.setProperty('--tilt', dodge.tilt);
         speech.textContent = dodge.message;
-        progress.children[taps - 1].classList.add('filled');
         return;
       }
 
       chickButton.hidden = true;
       speech.hidden = true;
-      progress.hidden = true;
+      hint.hidden = true;
       celebration.hidden = false;
       greeting.focus({ preventScroll: true });
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -446,10 +391,9 @@
       card.dataset.count = 0;
       chickButton.removeAttribute('style');
       speech.textContent = 'دوس عليا!';
-      for (const egg of progress.children) egg.classList.remove('filled');
       confetti.replaceChildren();
       celebration.hidden = true;
-      progress.hidden = false;
+      hint.hidden = false;
       speech.hidden = false;
       chickButton.hidden = false;
       chickButton.focus({ preventScroll: true });
