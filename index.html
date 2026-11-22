@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffefd6">
+<title>مفاجأة صغيرة 🐥</title>
+<style>
+  * { box-sizing: border-box }
+  body {
+    margin: 0; min-height: 100vh; min-height: 100svh; display: grid; place-items: center;
+    background: radial-gradient(ellipse at 50% 0%, #fff9ed, #ffedd4 64%, #fbdcd4);
+    color: #49262b; font-family: system-ui, sans-serif; padding: 20px;
+  }
+  .card {
+    position: relative; isolation: isolate; width: min(100%, 525px); overflow: hidden;
+    background: #fffaf1; border: 1px solid #e9cbac; border-radius: 32px;
+    box-shadow: 0 22px 60px #824e2b1a; text-align: center;
+  }
+  .intro { padding: 34px 20px 0 }
+  h1, h2, p { margin: 0 }
+  h1, h2 { line-height: 1.1 }
+  h1 { font-size: clamp(1.85rem, 7vw, 2.7rem); margin-bottom: 11px }
+  .hint { color: #775047; font-size: 1rem }
+  .arena {
+    position: relative; height: clamp(245px, 48svh, 340px); margin: 18px 15px 0;
+    border-radius: 24px; overflow: hidden; direction: ltr;
+    background: radial-gradient(circle, #d791773d 1.25px, transparent 1.6px) 0 0 / 23px 23px, #fff2dd;
+  }
+  .spark { position: absolute; color: #c46e56; font-size: 2rem; pointer-events: none }
+  .spark.one { left: 11%; top: 14% }
+  .spark.two { right: 11%; bottom: 17%; color: #a176a1 }
+  .spark.three { right: 13%; top: 13%; color: #cc963c; font-size: 1.4rem }
+  .chaser {
+    --x: 50%; --y: 52%; position: absolute; left: var(--x); 
+    top: var(--y); transform: translate(-50%, -50%); width: 148px;
+    display: grid; justify-items: center; gap: 10px; padding: 0 0 6px;
+    border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit;
+    transition: left .32s cubic-bezier(.16,1,.3,1), top .32s cubic-bezier(.16,1,.3,1);
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
+  button:focus-visible { outline: 3px solid #995064; outline-offset: 5px; border-radius: 16px }
+  .speech {
+    direction: rtl; position: relative; z-index: 1; white-space: nowrap; font-weight: 750;
+    background: white; border: 1px solid #e6bd9d; border-radius: 20px; padding: 7px 10px;
+    box-shadow: 0 3px 0 #e6bd9d55;
+  }
+  .speech::after {
+    content: ""; position: absolute; width: 8px; height: 8px; left: 50%; bottom: -5px;
+    transform: translateX(-50%) rotate(45deg); background: white;
+    border-right: 1px solid #e6bd9d; border-bottom: 1px solid #e6bd9d;
+  }
+  .chick {
+    display: block; position: relative; width: 101px; height: 105px;
+    border: 2px solid #a96125; border-radius: 53% 49% 45% 48%;
+    background: radial-gradient(ellipse at 33% 22%, #fff2a0, #ffdc62 48%, #ffbc43 85%);
+    box-shadow: inset -6px -7px #ef931f33, 0 13px 0 -5px #c4834b38;
+  }
+  .chick::before {
+    content: ""; position: absolute; width: 12px; height: 18px; border-radius: 90% 10% 75% 15%;
+    border: 2px solid #a96125; background: #ffe377; top: -12px; left: 44px;
+    transform: rotate(23deg); clip-path: inset(0 0 5px);
+  }
+  .eyes { position: absolute; top: 35px; left: 27px; width: 8px; height: 10px; background: #49262b; border-radius: 50%; box-shadow: 35px 0 #49262b }
+  .beak { position: absolute; top: 46px; left: 39px; width: 20px; height: 13px; background: #f5883e; border: 1.5px solid #a85426; border-radius: 75% 75% 47% 47% }
+  .cheeks { position: absolute; top: 48px; left: 16px; width: 14px; height: 8px; background: #ff9981; border-radius: 50%; box-shadow: 52px 0 #ff9981 }
+  .wings::before, .wings::after {
+    content: ""; position: absolute; top: 59px; width: 23px; height: 16px;
+    background: #ffce4c; border: 1.5px solid #a96125; border-radius: 50%;
+  }
+  .wings::before { left: -9px; transform: rotate(32deg) }
+  .wings::after { right: -9px; transform: rotate(-32deg) }
+  .feet { position: absolute; bottom: -7px; left: 24px; width: 17px; height: 8px; background: #ed8b39; border: 1px solid #a96125; border-radius: 55%; box-shadow: 33px 0 #ed8b39, 34px 0 #a96125 }
+  .progress { display: flex; justify-content: center; gap: 8px; margin: 19px auto 24px }
+  .progress i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid #b17b65 }
+  .progress .caught { background: #b24e67; border-color: #b24e67 }
+  .reveal { direction: ltr; position: relative; z-index: 1; padding: 48px 18px; }
+  .reveal .chick { margin: 0 auto 29px }
+  h2 { font: 700 clamp(2.2rem, 8vw, 3.7rem)/1.04 Georgia, serif; letter-spacing: -.055em }
+  h2 strong { color: #a13e64; font-style: italic }
+  .wish { direction: rtl; color: #775047; margin: 19px 0 23px; line-height: 1.6 }
+  .replay { cursor: pointer; font: inherit; font-weight: 700; background: #74354e; color: white; border: 0; border-radius: 30px; padding: 11px 22px; touch-action: manipulation }
+  h2:focus { outline: none }
+  .confetti { position: absolute; pointer-events: none; inset: 0; overflow: hidden }
+  .confetti i { position: absolute; top: -18px; left: var(--left); width: 8px; height: 13px; border-radius: 2px; background: var(--color); animation: fall var(--time) var(--delay) ease-in both }
+  @keyframes fall { to { transform: translate(var(--drift), 480px) rotate(630deg); opacity: .1 } }
+  [hidden] { display: none !important }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important } }
+</style>
+</head>
+<body>
+<main class="card">
+  <section id="game" aria-labelledby="title">
+    <header class="intro">
+      <h1 id="title">مفاجأة صغيرة</h1>
+      <p class="hint">امسكي الكتكوت عشان تعرفيها</p>
+    </header>
+    <div class="arena">
+      <span class="spark one" aria-hidden="true">✧</span><span class="spark two" aria-hidden="true">✧</span><span class="spark three" aria-hidden="true">✦</span>
+      <button class="chaser" id="chaser" type="button">
+        <span class="speech" id="speech" aria-live="polite">دوسي عليا!</span>
+        <span class="chick" aria-hidden="true"><span class="eyes"></span><span class="beak"></span><span class="cheeks"></span><span class="wings"></span><span class="feet"></span></span>
+      </button>
+    </div>
+    <div class="progress" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  </section>
+  <section class="reveal" id="reveal" hidden>
+    <div class="chick" aria-hidden="true"><span class="eyes"></span><span class="beak"></span><span class="cheeks"></span><span class="wings"></span><span class="feet"></span></div>
+    <h2 tabindex="-1" lang="en">Happy birth to you <strong>asiya</strong></h2>
+    <p class="wish">كل سنة وإنتِ طيبة يا آسيا 🎂</p>
+    <button class="replay" type="button" id="replay">العبي تاني</button>
+  </section>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+</main>
+<script>
+  const game = document.querySelector('#game');
+  const chaser = document.querySelector('#chaser');
+  const speech = document.querySelector('#speech');
+  const reveal = document.querySelector('#reveal');
+  const confetti = document.querySelector('#confetti');
+  const dots = [...document.querySelectorAll('.progress i')];
+  const positions = [['26%', '68%'], ['74%', '36%'], ['29%', '34%']];
+  let taps = 0;
+
+  chaser.addEventListener('click', () => {
+    if (taps === 4) return;
+    dots[taps].classList.add('caught');
+    taps += 1;
+
+    if (taps <= positions.length) {
+      const [x, y] = positions[taps - 1];
+      chaser.style.setProperty('--x', x);
+      chaser.style.setProperty('--y', y);
+      speech.textContent = 'فلت منك هههه';
+      return;
+    }
+
+    game.hidden = true;
+    reveal.hidden = false;
+    reveal.querySelector('h2').focus();
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const colors = ['#ed8499', '#fac451', '#976cb4', '#75a97f', '#ef8c57'];
+    for (let i = 0; i < 54; i += 1) {
+      const piece = document.createElement('i');
+      piece.style.setProperty('--left', Math.random() * 100 + '%');
+      piece.style.setProperty('--color', colors[i % colors.length]);
+      piece.style.setProperty('--drift', (Math.random() * 130 - 65) + 'px');
+      piece.style.setProperty('--delay', Math.random() * 0.65 + 's');
+      piece.style.setProperty('--time', 0.85 + Math.random() * 0.8 + 's');
+      piece.addEventListener('animationend', () => piece.remove(), { once: true });
+      confetti.append(piece);
+    }
+  });
+
+  document.querySelector('#replay').addEventListener('click', () => {
+    taps = 0;
+    dots.forEach(dot => dot.classList.remove('caught'));
+    confetti.replaceChildren();
+    speech.textContent = 'دوسي عليا!';
+    chaser.style.removeProperty('--x');
+    chaser.style.removeProperty('--y');
+    reveal.hidden = true;
+    game.hidden = false;
+    chaser.focus();
+  });
+</script>
+</body>
+</html>
